@@ -46,7 +46,9 @@
         <REPL_YACY_ROOT_DIR>.</REPL_YACY_ROOT_DIR>
         <REPL_PKGMANAGER>false</REPL_PKGMANAGER>
         <REPL_RESTARTCMD>/etc/init.d/yacy restart</REPL_RESTARTCMD>
+       
     </properties>
+   
 
     <build>
         <sourceDirectory>source</sourceDirectory>
@@ -194,7 +196,7 @@
             </plugin>
 
             <!-- exec:exec goal to provide start YaCy by Maven (just to have it for cases were the ide not provides a run command) -->
-            <!--
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -212,7 +214,7 @@
                     </arguments>
                 </configuration>
             </plugin>
-            -->
+            
 
         </plugins>
     </build>
@@ -244,26 +246,7 @@
             		<!-- custom plugin to add YaCy release number from local Git clone 
             		sets property <releaseNr>9nnn</releasNr> <DSTAMP>yyyyMMdd</DSTAMP> 
             		! run sub project in libbuild to install the plugin ! -->
-            		<plugin>
-                		<groupId>net.yacy</groupId>
-                		<artifactId>maven-plugin-gitrevisionnumber</artifactId>
-                		<version>1.1</version>
-                		<executions>
-                    		<execution>
-                        		<phase>initialize</phase>
-                        		<goals>
-                            		<goal>create</goal>
-                        		</goals>
-                        		<!-- optional parameter to set/change the propertyName 
-                        		<configuration> 
-                            		<branchPropertyName>branch</branchPropertyName>
-                            		<buildNumberPropertyName>releasNr</buildNumberPropertyName> 
-                            		<commitDatePropertyName>DSTAMP</commitDatePropertyName> 
-                        		</configuration> 
-                        		-->
-                    		</execution>
-                		</executions>
-            		</plugin>
+            		
     			</plugins>
     		</build>
     	</profile>
@@ -342,14 +325,19 @@
         </profile>
     </profiles>
 
-	<repositories>
-    	<repository>
-    		<!-- After version 2.0.3 JAudioTagger library is no more archived on Maven Central repository -->
-        	<id>jaudiotagger-repository</id>
-        	<url>https://dl.bintray.com/ijabz/maven</url>
-    	</repository>
-	</repositories>
-
+	
+<repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+  </repositories>
+  
+  
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -463,11 +451,7 @@
             <version>3.3.2</version>
             <type>jar</type>
         </dependency>        
-        <dependency>
-            <groupId>net.jthink</groupId>
-            <artifactId>jaudiotagger</artifactId>
-            <version>2.2.5</version>
-        </dependency>
+        
         <dependency>
             <groupId>net.sourceforge.jchardet</groupId>
             <artifactId>jchardet</artifactId>
@@ -641,10 +625,7 @@
 
         <!-- special setup for dependencies not found in maven repository
         to installed in local repository -->
-        <dependency>
-            <groupId>net.yacy.extlib</groupId>
-            <artifactId>J7Zip-modified</artifactId>
-            <version>1.02</version>
-        </dependency>
+        
+       
     </dependencies>
 </project>
